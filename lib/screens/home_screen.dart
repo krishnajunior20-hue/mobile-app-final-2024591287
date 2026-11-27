@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/category.dart';
 import '../services/meal_api.dart';
-import 'home_screen.dart';
+import 'meal_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -71,15 +71,25 @@ class _HomeScreenState extends State<HomeScreen> {
       itemCount: _categories.length,
       itemBuilder: (context, index) {
         final category = _categories[index];
-        return Card(
-          child: Column(
-            children: [
-              Expanded(child: Image.network(category.imageUrl)),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: Text(category.name),
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MealListScreen(category: category.name),
               ),
-            ],
+            );
+          },
+          child: Card(
+            child: Column(
+              children: [
+                Expanded(child: Image.network(category.imageUrl)),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(category.name),
+                ),
+              ],
+            ),
           ),
         );
       },
